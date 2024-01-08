@@ -63,6 +63,7 @@ def payloadUPSHELL(target):
 def nulzGG():
     clear()
     banner()
+    print('Target Example: https://domain.com/vendor/phpunit/phpunit/src/Util/PHP/eval-stdin.php')
     target = input('TARGET >: ')
     print('''
 [ Select Payload ]
@@ -98,7 +99,7 @@ if __name__ == '__main__':
                     continue
                 else:
                     print('Mohon Masukan Pilihan Dengan Benar')
-                    continue    
+                    continue
             else:
                 print('Mohon Masukan Pilihan Dengan Benar')
                 continue
