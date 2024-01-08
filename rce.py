@@ -60,7 +60,7 @@ def NuLzUPSHELL(target):
     res = req.text
     print(res)
 
-def nulzGG():
+def NuLzGG():
     clear()
     banner()
     print('Target Example: https://domain.com/vendor/phpunit/phpunit/src/Util/PHP/eval-stdin.php')
@@ -88,7 +88,7 @@ def nulzGG():
 if __name__ == '__main__':
     while True:
         try:
-            nulzGG()
+            NuLzGG()
         except KeyboardInterrupt:
             quest = input('\nApakah anda ingin keluar? Y/N >: ')
             if quest:
