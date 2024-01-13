@@ -7,11 +7,11 @@ Requirements:<br>
 
 installing module
 ```console
-pip install requests
+pip3 install requests
 ```
 run
 ```console
-python rce.py
+python3 rce.py
 ```
 or
 ```console
